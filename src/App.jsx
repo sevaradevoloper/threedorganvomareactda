@@ -1,7 +1,7 @@
 import { Canvas,useFrame } from '@react-three/fiber'
 import{useRef} from 'react'
 
-
+import{OrbitControls } from '@react-three/drei';
 
 
 const AnimatedBox = ()=>{
@@ -19,6 +19,7 @@ const AnimatedBox = ()=>{
     <mesh ref={boxRef} >
          <boxGeometry args={[2,3,2]}/>
          <meshStandardMaterial color={0x00bfff}/>
+         <axesHelper args={[10]}/>
        </mesh>
   )
 }
@@ -27,6 +28,9 @@ const App = () => {
   return (
     <div id='canvas-container'>
       <Canvas>
+        <gridHelper args={[20,20,0xff22aa,0x55ccff]}/>
+        <axesHelper args={[10]}/>
+        <OrbitControls />
           <AnimatedBox/>
          <directionalLight position={[2,5,1]}/>
       </Canvas>
