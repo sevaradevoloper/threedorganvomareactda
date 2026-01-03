@@ -1,8 +1,35 @@
 import { Canvas,useFrame } from '@react-three/fiber'
 import{useRef} from 'react'
 
-import{OrbitControls,GizmoHelper,GizmoViewcube,GizmoViewport } from '@react-three/drei';
+import{OrbitControls,GizmoHelper,GizmoViewcube,GizmoViewport,useHelper } from '@react-three/drei';
 import{useControls} from 'leva';
+import{SpotLightHelper} from 'three';
+
+
+
+const LightWithHelper = ()=>{
+
+
+  const light = useRef();
+
+
+  const {angle,penumbra} =useControls({
+    angle:Math.PI /8,
+    penumbra:{
+      value:0.0,
+      min:0.0,
+      max:1.0,
+      step:0.1
+    }
+  })
+
+
+  useHelper(light,SpotLightHelper,'orange')
+  return(
+     <spotLight  ref={light} penumbra={penumbra}  angle={angle} intensity={80} color={0xffea00} position={[2,5,1]}/>
+  )
+}
+
 
 const AnimatedBox = ()=>{
   const boxRef = useRef();
@@ -50,7 +77,8 @@ const App = () => {
         <axesHelper args={[10]}/>
         <OrbitControls />
         <AnimatedBox/>
-        <directionalLight position={[2,5,1]}/>
+        <ambientLight intensity={0.2} color={0xfcfcfc}/>
+       <LightWithHelper/>
       </Canvas>
     </div>
     
